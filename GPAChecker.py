@@ -42,7 +42,7 @@ class portal:
                 break
             except:
                 print("Post process error")
-                sleep(10)
+                time.sleep(10)
         return r.text
 
     def login(self):
