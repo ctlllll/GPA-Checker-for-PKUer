@@ -4,6 +4,7 @@ import requests
 import time
 import smtplib
 import json
+import pickle
 from getpass import getpass
 from email.mime.text import MIMEText
 
@@ -44,6 +45,27 @@ class portal:
                 print("Post process error")
                 time.sleep(10)
         return r.text
+
+    def httpLogin(self, userName, password):
+        data = {'appid': 'portal2017', 'userName': '%s' % userName, 'password': '%s' % password, 'randCode': '验证码',
+                'smsCode': '短信验证码', 'redirUrl': 'http://portal.pku.edu.cn/portal2017/login.jsp/../ssoLogin.do'}
+        tot = 0
+        while True:
+            cont = self.postNext(self.oauthLogin, data)
+            if cont.find('token') != -1:
+                break
+            tot += 1
+            time.sleep(0.5)
+            if tot > 3:
+                return -1
+        data = {}
+        if os.path.exists('userData'):
+            data = pickle.load(open('userData', 'rb+'))
+            if data.get(userName) != None:
+                return 0
+        data[userName] = password
+        pickle.dump(data, open('userData', 'wb+'))
+        return 1
 
     def login(self):
         if self.userName == '':
@@ -111,7 +133,8 @@ class portal:
         return s
 
     def sendMail(self):
-        mailserver = smtplib.SMTP('your_smtp_server_address_like_smtp.163.com', 25)
+        mailserver = smtplib.SMTP(
+            'your_smtp_server_address_like_smtp.163.com', 25)
         mailserver.login('your_server_e-mail_address', 'your_password')
         message = self.grade
         msg = MIMEText(message, 'plain', 'utf-8')
