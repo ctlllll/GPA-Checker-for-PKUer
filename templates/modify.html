@@ -6,30 +6,27 @@
 <link rel="stylesheet" type="text/css" href="/static/index/login.css">
 <link href="/static/index/font-awesome.min.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="/static/index/jquery-1.10.2.min.js"></script>
-<title>GPA Checker更改信息</title>
+<title>GPA Checker修改信息</title>
 </head>
 <body onload="focusName()" style="" class="   ext-webkit ext-chrome ext-linux">
    <div class="main">
       <div class="top"><a href="http://www.pku.edu.cn/"><img src="/static/index/pku_logo.png"></a></div>
       <div class="mid" style="background-image: url(&quot;/static/index/pku_view_3.jpg&quot;);">
-	      <form method="post" action="/login">
+      	  <form method="post" action="/register">
 	      <div class="single_col_panel">
+	      	<br>
+	      	<br>
+	      	<br>
+	      	<br>
+	      	<br>
 	             <div class="row">
-	             申明：此处登录仅提取用户名密码，然后模拟iaaa登录，并非直接使用官方的接口，若不放心请自行下载python源文件自己配置。
-		            <input class="input-txt-row" type="text" tabindex="1" id="user_name" name="userName" placeholder="学号" style="border-color: rgb(206, 206, 206); color: rgb(183, 183, 185);">
-		         	<a href="javascript:void(0)" class="i-clear" onclick="resetInput(event)"><i class="fa fa-times-circle"></i></a>
-		         </div>
-	            <div id="passwd_area" class="row">
-	            	<!-- 原来采用text和password切换的方式，但无法实现自动填写密码 -->
-		        	<input class="input-txt-row input-txt-pad" type="password" tabindex="2" id="password" name="password" placeholder="密码" style="border-color: rgb(206, 206, 206);">
-		            <a href="javascript:void(0)" class="i-clear i-clear-pad" onclick="resetInput(event)"><i class="fa fa-times-circle"></i></a>
-		         </div>
-		         <div class="row-thin">
-		            <span id="msg"></span>
+	             您已注册过，若想修改邮箱请在下面写入新邮箱，否则将视为从列表中删除原有账号。
+	                <input class="input-txt-row" type="text" tabindex="1" id="user_name" name="mailAddress" placeholder="邮箱" style="border-color: rgb(206, 206, 206); color: rgb(183, 183, 185);">
 		         </div>
 		         <div class="row">
-		            <input type="submit" class="input-btn-row" id="logon_button" value="登录">
+		            <input type="submit" class="input-btn-row" id="logon_button" value="确认">
 		         </div>
+                 <a href="/">返回主页</a>
 	      </div>
 	      </form>
 	  </div>

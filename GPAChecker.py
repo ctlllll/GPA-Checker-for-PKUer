@@ -65,6 +65,8 @@ class portal:
                 return 0
         data[userName] = password
         pickle.dump(data, open('userData', 'wb+'))
+        self.userName = userName
+        self.password = password
         return 1
 
     def login(self):
@@ -118,6 +120,21 @@ class portal:
         self.grade = output
         print(output)
 
+    def getOutput(self):
+        cont = self.postNext(self.retrScores)
+        if cont.find('cjxx') == -1:
+            return 'There is some mistake with your account'
+        s = json.loads(cont)['cjxx']
+        output = ''
+        for semester in range(len(s)):
+            classList = s[semester]['list']
+            for classItem in classList:
+                output += classItem['kcmc'] + ' Grade:' + \
+                    classItem['xqcj'] + ' GPA:' + classItem['jd'] + '\n'
+            output += '\n'
+        print(output)
+        return output
+
     def getGPA(self):
         tot = 0
         while True:
@@ -143,6 +160,29 @@ class portal:
         msg['To'] = 'your_client_server_e-mail_address'
         mailserver.sendmail('your_server_e-mail_address', [
                             'your_client_server_e-mail_address'], msg.as_string())
+        mailserver.quit()
+
+    def autoCheck(self):
+        self.GPA = self.getGPA()
+        while True:
+            GPA = self.GPA
+            self.GPA = self.getGPA()
+            if GPA != self.GPA:
+                self.getGrade()
+                self.sendMail()
+            time.sleep(10)
+
+    def sendMailto(self, output, dest):
+        mailserver = smtplib.SMTP(
+            'your_smtp_server_address_like_smtp.163.com', 25)
+        mailserver.login('your_server_e-mail_address', 'your_password')
+        message = output
+        msg = MIMEText(message, 'plain', 'utf-8')
+        msg['Subject'] = 'Send from Python'
+        msg['From'] = 'your_server_e-mail_address'
+        msg['To'] = dest
+        mailserver.sendmail('your_server_e-mail_address', [
+                            dest], msg.as_string())
         mailserver.quit()
 
     def autoCheck(self):
