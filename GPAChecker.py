@@ -157,19 +157,26 @@ class portal:
         msg = MIMEText(message, 'plain', 'utf-8')
         msg['Subject'] = 'Send from Python'
         msg['From'] = 'your_server_e-mail_address'
-        msg['To'] = 'your_client_server_e-mail_address'
+        msg['To'] = 'your_client_e-mail_address'
         mailserver.sendmail('your_server_e-mail_address', [
-                            'your_client_server_e-mail_address'], msg.as_string())
+                            'your_client_e-mail_address'], msg.as_string())
         mailserver.quit()
 
     def autoCheck(self):
-        self.GPA = self.getGPA()
+        #self.GPA = self.getGPA()
+        #while True:
+        #    GPA = self.GPA
+        #    self.GPA = self.getGPA()
+        #    if GPA != self.GPA:
+        #        self.getGrade()
+        #        self.sendMail()
+        #    time.sleep(10)
+        self.output=self.getOutput()
         while True:
-            GPA = self.GPA
-            self.GPA = self.getGPA()
-            if GPA != self.GPA:
-                self.getGrade()
-                self.sendMail()
+            output=self.output
+            self.output=self.getOutput()
+            if output!=self.output:
+                self.sendMailto(output,'your_client_e-mail_address')
             time.sleep(10)
 
     def sendMailto(self, output, dest):
@@ -184,16 +191,6 @@ class portal:
         mailserver.sendmail('your_server_e-mail_address', [
                             dest], msg.as_string())
         mailserver.quit()
-
-    def autoCheck(self):
-        self.GPA = self.getGPA()
-        while True:
-            GPA = self.GPA
-            self.GPA = self.getGPA()
-            if GPA != self.GPA:
-                self.getGrade()
-                self.sendMail()
-            time.sleep(10)
 
 
 if __name__ == '__main__':
