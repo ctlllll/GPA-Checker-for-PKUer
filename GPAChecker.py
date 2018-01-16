@@ -155,9 +155,9 @@ class portal:
         mailserver.login('your_server_e-mail_address', 'your_password')
         message = self.grade
         msg = MIMEText(message, 'plain', 'utf-8')
-        msg['Subject'] = 'Send from Python'
-        msg['From'] = 'your_server_e-mail_address'
-        msg['To'] = 'your_client_e-mail_address'
+        msg['Subject'] = 'GPAChecker Notification'
+        msg['from'] = 'your_server_e-mail_address'
+        msg['to'] = 'your_client_e-mail_address'
         mailserver.sendmail('your_server_e-mail_address', [
                             'your_client_e-mail_address'], msg.as_string())
         mailserver.quit()
@@ -185,9 +185,9 @@ class portal:
         mailserver.login('your_server_e-mail_address', 'your_password')
         message = output
         msg = MIMEText(message, 'plain', 'utf-8')
-        msg['Subject'] = 'Send from Python'
-        msg['From'] = 'your_server_e-mail_address'
-        msg['To'] = dest
+        msg['Subject'] = 'GPAChecker Notification'
+        msg['from'] = 'your_server_e-mail_address'
+        msg['to'] = dest
         mailserver.sendmail('your_server_e-mail_address', [
                             dest], msg.as_string())
         mailserver.quit()
