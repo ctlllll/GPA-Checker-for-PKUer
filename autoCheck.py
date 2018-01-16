@@ -17,7 +17,7 @@ while True:
             sess.login()
             new = sess.getOutput()
             if last != new:
-                sess.sendMailto(new, mailData[userName])
+                sess.sendMailto(new, str(mailData[userName]))
             sleep(1)
         else:
             sess.userName = str(userName)
