@@ -9,15 +9,17 @@ while True:
     mailData = pickle.load(open('mailData', 'rb+'))
     for userName in userData.keys():
         sess.__init__()
-        print(userName, userData[userName])
         if userName in output.keys():
             last = output[userName]
             sess.userName = str(userName)
             sess.password = str(userData[userName])
             sess.login()
             new = sess.getOutput()
-            if last != new:
-                sess.sendMailto(new, str(mailData[userName]))
+            try:
+                if last != new and userName in mailData.keys():
+                    sess.sendMailto(str(new), str(mailData[userName]))
+            except:
+                pass
             sleep(1)
         else:
             sess.userName = str(userName)
